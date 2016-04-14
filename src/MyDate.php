@@ -23,6 +23,11 @@
       12 => 31,
     );
 
+    /**
+     * @param $m
+     * @param $y
+     * @return mixed
+     */
     public static function getDaysInMonth($m,$y){
       $days = self::$daysInMonth[$m];
       // leap year
@@ -67,6 +72,9 @@
       return $this->day;
     }
 
+    /**
+     * @return int
+     */
     public function getTotalDays(){
       $totalDays = $this->getTotalDaysFromYears();
       $totalDays += $this->getTotalDaysFromMonths();
@@ -74,12 +82,18 @@
       return (int) $totalDays;
     }
 
+    /**
+     * @return float
+     */
     public function getTotalDaysFromYears(){
       $daysNoLeap = $this->getYear() * self::DAYS_IN_NON_LEAP_YEAR;
       $daysLeap = floor($this->getYear()/4);
       return $daysLeap + $daysNoLeap;
     }
 
+    /**
+     * @return int
+     */
     public function getTotalDaysFromMonths(){
       $days = 0;
       for($m = 1;$m<$this->getMonth();$m++){
@@ -95,6 +109,9 @@
       $this->day = $day;
     }
 
+    /**
+     * @param $string
+     */
     public function __construct($string){
       $parts = explode("/",$string);
       $this->setYear($parts[0]);
@@ -102,22 +119,18 @@
       $this->setDay($parts[2]);
     }
 
+    /**
+     * @param $start
+     * @param $end
+     * @return MyDateInterval
+     */
     public static function diff($start, $end) {
       $startDate = new MyDate($start);
       $endDate = new MyDate($end);
 
       $dateInterval = new MyDateInterval($startDate,$endDate);
 
-      //die(print_r($dateInterval,1));
-
-      // Sample object:
-      return (object)array(
-        'years' => $dateInterval->getYearsDiff(),
-        'months' => $dateInterval->getMonthsDiff(),
-        'days' => $dateInterval->getDaysDiff(),
-        'total_days' => $dateInterval->getTotalDays(),
-        'invert' => $dateInterval->getInvert()
-      );
+      return $dateInterval;
     }
 
   }

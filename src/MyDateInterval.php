@@ -57,6 +57,35 @@ class MyDateInterval {
     $this->setInvert();
   }
 
+  /**
+   * @param $name
+   * @return int|mixed|null|number
+   */
+  public function __get($name) {
+    $ret = null;
+    switch($name){
+      CASE "years":
+        $ret = $this->getYearsDiff();
+        break;
+      CASE "months":
+        $ret = $this->getMonthsDiff();
+        break;
+      CASE "days":
+        $ret = $this->getDaysDiff();
+        break;
+      CASE "total_days":
+        $ret = $this->getTotalDays();
+        break;
+      CASE "invert":
+        $ret = $this->getInvert();
+        break;
+    }
+    return $ret;
+  }
+
+  /**
+   * @return int
+   */
   public function getYearsDiff(){
     $yearDiff = abs($this->endDate->getYear() - $this->startDate->getYear());
     $daysDiff = $this->getTotalDays(true);
@@ -72,9 +101,11 @@ class MyDateInterval {
     return (int) $diff;
   }
 
+  /**
+   * @return int|number
+   */
   public function getMonthsDiff(){
     $yearsDiff = $this->getYearsDiff();
-    $diff = 0;
     if($yearsDiff < abs($this->endDate->getYear() - $this->startDate->getYear())){
       if(!$this->invert){
         $diff = MyDate::MONTHS_IN_YEAR - $this->startDate->getMonth() + $this->endDate->getMonth();
@@ -88,7 +119,6 @@ class MyDateInterval {
         }
       }
 
-
     } else {
       $diff = abs($this->endDate->getMonth() - $this->startDate->getMonth());
     }
@@ -97,11 +127,19 @@ class MyDateInterval {
 
   }
 
+  /**
+   * @param bool|true $abs
+   * @return mixed|number
+   */
   public function getDaysDiff($abs = true){
     $diff = $this->endDate->getDay() - $this->startDate->getDay();
     return $abs?abs($diff):$diff;
   }
 
+  /**
+   * @param bool|true $abs
+   * @return int|number
+   */
   public function getTotalDays($abs = true){
     $diff = $this->endDate->getTotalDays() - $this->startDate->getTotalDays();
     return $abs?abs($diff):$diff;
