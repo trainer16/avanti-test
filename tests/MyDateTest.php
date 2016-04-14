@@ -1,7 +1,7 @@
 <?php
 
   class MyDateTest extends PHPUnit_Framework_TestCase {
-    
+
     public function testSimpleTotalDays() {
 
       $this->assertTotalDays('2014/01/01', '2014/01/04');
@@ -75,15 +75,21 @@
     }
     
     public function testComplexMonths() {
-
       $this->assertMonths('2013/06/15', '2015/03/01');
-      
+    }
+
+    public function testCloseComplexMonths() {
+      $this->assertMonths('2013/12/15', '2014/01/01');
+    }
+
+    public function testInverseComplexMonths() {
+      $this->assertMonths('2015/03/01','2013/06/15');
     }
     
     public function testComplexYears() {
 
       $this->assertYears('2013/09/13', '2015/07/01');
-      
+
     }
     
     public function testLeapYearTotalDays() {

@@ -5,7 +5,8 @@
       static $classes = null;
       if ($classes === null) {
         $classes = array(
-          'mydate' => '/MyDate.php'
+          'mydate' => '/MyDate.php',
+          'mydateinterval' => '/MyDateInterval.php'
         );
       }
       $cn = strtolower($class);
